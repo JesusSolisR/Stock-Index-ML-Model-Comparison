@@ -1,10 +1,13 @@
 import pandas as pd
 
-def load_data(file_path='../data/indexData.csv', stock_index = None):
+def load_data(stock_index=None, start_date=None, end_date=None, file_path='../data/indexData.csv'):
     """Load data from a given file path."""
+    """start_date and end_date should be in 'YYYY-MM-DD' format strings."""
+    """file_path is defaulted to '../data/indexData.csv'."""
     print(f"Loading data from {file_path}...")
     df_raw = pd.read_csv(file_path)
-    # 1. filter for a specific stock index if provided
+    # 1. filters
+    # filter for a specific stock index if provided
     if stock_index:
         df_raw = df_raw[df_raw['Index'] == stock_index]
     # 2. rename to follow Python's naming convention
@@ -21,6 +24,11 @@ def load_data(file_path='../data/indexData.csv', stock_index = None):
         })
     # 3. make date a pandas datetime object
     df['date'] = pd.to_datetime(df['date'])
+    # filter for date range if provided
+    if start_date:
+        df = df[df['date'] >= pd.to_datetime(start_date)]
+    if end_date:
+        df = df[df['date'] <= pd.to_datetime(end_date)]
     # 4. set date as index and sort by date as it's time series data
     df = df.set_index('date')
     df.sort_index(inplace=True)
