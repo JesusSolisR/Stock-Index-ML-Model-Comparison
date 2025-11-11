@@ -27,4 +27,6 @@ dependencies:
   - pip:
       - pandas-datareader
       - python-dotenv
+      # Optional: install stubs for static type checkers / language servers
+      - pandas-stubs
 
