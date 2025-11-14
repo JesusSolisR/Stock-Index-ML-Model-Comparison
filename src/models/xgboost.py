@@ -23,7 +23,7 @@ class XGBTrainer(BaseTrainer):
     def build_pipeline(self) -> Pipeline:
         if XGBClassifier is None:
             raise ImportError("xgboost is required to use XGBTrainer. Install with `pip install xgboost`.")
-        clf = XGBClassifier(n_estimators=self.n_estimators, max_depth=self.max_depth, learning_rate=self.learning_rate, random_state=self.random_state, use_label_encoder=False, eval_metric='logloss')
+        clf = XGBClassifier(n_estimators=self.n_estimators, max_depth=self.max_depth, learning_rate=self.learning_rate, random_state=self.random_state, eval_metric='logloss')
         return Pipeline([
             ("scaler", StandardScaler()),
             ("clf", clf)
