@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.pipeline import Pipeline
 
 from .base import BaseTrainer
@@ -25,21 +25,11 @@ class DecisionTreeTrainer(BaseTrainer):
                  max_depth: Optional[int] = 10,
                  test_size: float = 0.2,
                  random_state: int = 42):
-        super().__init__(features=features, target=target, test_size=test_size, random_state=random_state)
-        self.numeric_features = numeric_features or []
-        self.categorical_features = categorical_features or []
+        super().__init__(features=features, numeric_features=numeric_features, categorical_features=categorical_features, target=target, test_size=test_size, random_state=random_state)
         self.max_depth = max_depth
 
     def build_pipeline(self) -> Pipeline:
-        transformers = []
-        if self.numeric_features:
-            transformers.append(("num", "passthrough", self.numeric_features))
-        if self.categorical_features:
-            transformers.append(("cat", OneHotEncoder(drop='first', handle_unknown='ignore', sparse_output=False), self.categorical_features))
-
-        preprocessor = ColumnTransformer(transformers=transformers, remainder='passthrough')
-
         return Pipeline([
-            ("preprocessor", preprocessor),
+            ("preprocessor", self.preprocessor),
             ("clf", DecisionTreeClassifier(max_depth=self.max_depth, random_state=self.random_state))
         ])

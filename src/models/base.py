@@ -10,7 +10,8 @@ import joblib
 import pandas as pd
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, roc_auc_score
-
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 class BaseTrainer:
     """Base trainer with small, stable API.
@@ -20,10 +21,20 @@ class BaseTrainer:
 
     def __init__(self,
                  features: List[str],
+                 numeric_features: List[str],
+                 categorical_features: List[str],
                  target: str = "price_up",
                  test_size: float = 0.2,
                  random_state: int = 42):
         self.features = features
+        self.numeric_features = numeric_features or []
+        self.categorical_features = categorical_features or []
+        self.transformers = []
+        if self.numeric_features:
+            self.transformers.append(("num", StandardScaler(), self.numeric_features))
+        if self.categorical_features:
+            self.transformers.append(("cat", OneHotEncoder(drop='first', handle_unknown='ignore', sparse_output=False), self.categorical_features))
+        self.preprocessor = ColumnTransformer(transformers=self.transformers, remainder='passthrough')
         self.target = target
         self.test_size = test_size
         self.random_state = random_state

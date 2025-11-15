@@ -10,12 +10,14 @@ from .base import BaseTrainer
 class LogisticTrainer(BaseTrainer):
     """Simple logistic regression trainer with a scaler + classifier pipeline."""
 
-    def __init__(self, features, target: str = "price_up", test_size: float = 0.2, random_state: int = 42, solver: str = "liblinear"):
-        super().__init__(features=features, target=target, test_size=test_size, random_state=random_state)
+    def __init__(self, features, numeric_features,
+                 categorical_features,
+                   target: str = "price_up", test_size: float = 0.2, random_state: int = 42, solver: str = "liblinear"):
+        super().__init__(features=features,numeric_features=numeric_features, categorical_features=categorical_features, target=target, test_size=test_size, random_state=random_state)
         self.solver = solver
 
     def build_pipeline(self) -> Pipeline:
         return Pipeline([
-            ("scaler", StandardScaler()),
+            ("preprocessor", self.preprocessor),
             ("clf", LogisticRegression(solver=self.solver, random_state=self.random_state))
         ])
