@@ -90,7 +90,7 @@ This project compares several machine learning models to classify short-term sto
 - GitHub: https://github.com/xqzv
 ### Mingxia Zeng
 - GitHub: https://github.com/luoyaqifei  
-- Audio Reflection: [🎧 mingxia-reflection](reflections/mingxia-reflection.mp3)
+- Audio Reflection (3 min): [🎧 listen here](https://drive.google.com/file/d/1Ifkt016SNXM0K9X0gkrPASk9essI5Nj8/view?usp=sharing)
 
 ## Results & recommendations
 - PLACEHOLDER (TBD): summarize final comparisons here (best model(s), sample metrics, limitations, next steps).
