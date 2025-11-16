@@ -82,10 +82,15 @@ This project compares several machine learning models to classify short-term sto
       - conda activate <env-name>
 
 ## Members & roles
-- Jesus Solis — https://github.com/JesusSolisR
-- Abeer Khetrapal — https://github.com/abeerkhe
-- Mark Kuriy — https://github.com/xqzv
-- Mingxia Zeng — https://github.com/luoyaqifei
+### Jesus Solis 
+- GitHub: https://github.com/JesusSolisR
+### Abeer Khetrapal
+- GitHub: https://github.com/abeerkhe
+### Mark Kuriy 
+- GitHub: https://github.com/xqzv
+### Mingxia Zeng
+- GitHub: https://github.com/luoyaqifei  
+- 🎧 [Audio Reflection (mingxia-reflection.m4a)](/reflections/mingxia-reflection.m4a)
 
 ## Results & recommendations
 - PLACEHOLDER (TBD): summarize final comparisons here (best model(s), sample metrics, limitations, next steps).
